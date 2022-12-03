@@ -50,7 +50,7 @@ function startQuiz(event) {
      `)
      currentQuestionIndex
     }    
-    //console.log(event)
+    
 }
 
 function checkCorrectAnswer(event) {
@@ -77,29 +77,9 @@ function checkCorrectAnswer(event) {
    
 }
 
-// function displayFeedback() {
-
-// }
 
 choicesOutput.addEventListener('click', checkCorrectAnswer) 
 startEl.addEventListener('click', startQuiz)
 
 
-
-// function currentQuestion() {
-    
-// }
-
-// currentQuestion()
-
-
-// if(){
-
-// }
-// checkCorrectAnswer()
-// if(element.dataset.correct === true) {
-//     console.log('CORRECT')
-// }
-//console.log(triviaData[0].answer)
-// 
 
