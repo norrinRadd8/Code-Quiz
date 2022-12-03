@@ -1,22 +1,26 @@
 // Global variables
 var timerEl = document.getElementById("time");
 var startEl = document.querySelector(".start");
-var wrapper = document.querySelector('.wrapper');
+var wrapper = document.querySelector(".wrapper");
 var questionTitle = document.querySelector("#question-title");
 var choicesOutput = document.querySelector("#choices");
+var endScreen = document.querySelector("#end-screen")
+var questionsHide = document.querySelector('#questions')
 var currentQuestionIndex = 0
 
 
 //Function for the timer
 function timeCountDown() {
-    var timeLeft = 120;
+    var timeLeft = 1000;
     var timeInerval = setInterval(function() {
         timerEl.innerText = timeLeft;
         timeLeft--;
         if(timeLeft < 0) {
             clearTimeout(timeInerval);
+            questionsHide.innerText = ''
+            endScreen.classList.remove('hide')
         }
-    }, 1200)
+    }, 1000)
     
 }
 
@@ -25,7 +29,7 @@ startEl.addEventListener("click", function(event) {
     timeCountDown()
     startEl.innerText = ''
     var currentQuestion = triviaData[currentQuestionIndex]
-    var questionsHide = document.querySelector('#questions')
+    
     var choices = currentQuestion.choices
 
     questionsHide.classList.remove('hide')
@@ -36,32 +40,27 @@ startEl.addEventListener("click", function(event) {
     for(var i = 0; i < choices.length; i++) {
      var choice = choices[i]
      var isCorrect = currentQuestion.answer === choice
-
+    
      choicesOutput.insertAdjacentHTML('beforeend', `
     <button data-correct=${isCorrect}>${choice}</button>
      `)
-     console.log(choice)
+     
     }
     
     
 })
 
+function checkCorrectAnswer(event) {
+    console.log(event.target)
+    var dataCorrect = element.dataset.correct = ""
+}
+choicesOutput.addEventListener('click', checkCorrectAnswer)
+// if(){
 
- console.log(questionTitle)
-
-// var title = questionsEl.children[0]
-// questionsEl = 'Hi There!!'
-// var output = questionsEl += title.innerText
-
-// console.log(output)
-
-// function loopQuestions() {
-//     var arr = triviaData
-//     for(var i = 0; i < triviaData; i++) {   
-        
-//     }
-//     console.log(arr[0].question)
-//     console.log(arr[0].choices[2])
 // }
+checkCorrectAnswer()
+if(element.dataset.correct === true) {
+    console.log('CORRECT')
+}
 
-// loopQuestions()
+
