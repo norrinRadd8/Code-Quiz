@@ -13,7 +13,7 @@ var currentQuestion = triviaData[currentQuestionIndex]
 
 //Function for the timer
 function timeCountDown() {
-    var timeLeft = 1000;
+    var timeLeft = 200;
     var timeInerval = setInterval(function() {
         timerEl.innerText = timeLeft;
         timeLeft--;
@@ -22,10 +22,11 @@ function timeCountDown() {
             questionsHide.innerText = ''
             endScreen.classList.remove('hide')
         }
-    }, 1000)
+    }, 200)
     
 }
 
+// Start Quiz function
 function startQuiz(event) {
     timeCountDown()
     event.preventDefault()
@@ -33,6 +34,7 @@ function startQuiz(event) {
     questionLoop()
 }
 
+// Quiz function loop
  function questionLoop() {
     
     var choices = currentQuestion.choices
@@ -53,6 +55,7 @@ function startQuiz(event) {
     
 }
 
+// Checking the correct answer conditions and displaying correct answer
 function checkCorrectAnswer(event) {
     
     var element = event.target
@@ -60,7 +63,7 @@ function checkCorrectAnswer(event) {
     var feedBack = document.querySelector("#feedback")
     
     feedBack.classList.remove('hide')
-   
+   // Need to 'flash' the feeback caption
 
     if(dataCorrect === "true") {
         feedBack.innerText = 'Correct!'
@@ -70,6 +73,7 @@ function checkCorrectAnswer(event) {
         feedBack.innerText = 'Incorrect!'
         
     }  
+    // Need to go onto the next question 
     questionLoop(event)
     
     console.log(typeof currentQuestionIndex) 
