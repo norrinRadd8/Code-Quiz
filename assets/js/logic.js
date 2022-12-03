@@ -6,7 +6,7 @@ var questionTitle = document.querySelector("#question-title");
 var choicesOutput = document.querySelector("#choices");
 var endScreen = document.querySelector("#end-screen")
 var questionsHide = document.querySelector("#questions")
-var answer = " "
+//var answer = " "
 var currentQuestionIndex = 0
 var currentQuestion = triviaData[currentQuestionIndex]
 var check = currentQuestion.answer
@@ -43,8 +43,9 @@ startEl.addEventListener("click", function(event) {
     for(var i = 0; i < choices.length; i++) {
      var choice = choices[i]
      var isCorrect = currentQuestion.answer === choice
+     //var check = choice == answer
      
-     
+        //console.log(check)
     //  console.log(typeof choice)
     //  console.log(typeof currentQuestion.answer)
     
@@ -62,22 +63,28 @@ function checkCorrectAnswer(event) {
     var dataCorrect = element.getAttribute("data-correct")
     var feedBack = document.querySelector("#feedback")
     
-
     feedBack.classList.remove('hide')
     
-    console.log(element)
-    // for(var i = 0; i < choices.length; i++) {
-    //     var check = [i].answer
-    //     console.log(check)
+    //console.log(element)
+
+    if(dataCorrect === "true") {
+        feedBack.innerText = 'Correct!'
+    } else feedBack.innerText = 'Incorrect!'
+
+    // for(var i = 0; i < triviaData.length; i++) {
+    //     var check = triviaData[i].answer
+    //     //console.log(check)
+        
     // }
-    if(dataCorrect = 'true') {
-        feedBack.innerText = `Correct!`
-        //console.log(dataCorrect)
+    // if(check === "3. alerts") {
+    //     feedBack.innerText = `Correct!`
+    //     //console.log(dataCorrect)
         
+    //     console.log(check)  
         
-        
-    } 
-    console.log(typeof dataCorrect)
+    //  } 
+   
+    //console.log(dataCorrect)
     //console.log(check)
     //console.log('Correct')
     //console.log(event)
