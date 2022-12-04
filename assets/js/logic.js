@@ -7,27 +7,34 @@ var questionTitle = document.querySelector("#question-title");
 var choicesOutput = document.querySelector("#choices");
 var endScreen = document.querySelector("#end-screen")
 var questionsHide = document.querySelector("#questions")
+var finalScore = document.querySelector("#final-score")
+var initials = document.querySelector("#initials")
+var submit = document.querySelector("#submit")
+var finalScore = document.querySelector("#final-score")
 //var currentQuestionIndex = Math.floor(Math.random() * 3)
 var currentQuestionIndex = 0
 var currentQuestion = triviaData[currentQuestionIndex]
 
 choicesOutput.addEventListener('click', checkCorrectAnswer) 
 startEL.addEventListener('click', startQuiz)
+submit.addEventListener('click', enterName)
 
 //Function for the timer
 function timeCountDown() {
-    var timeLeft = 1200;
+    var timeLeft = 100;
+    
     var timeInerval = setInterval(function() {
         timerEl.innerText = timeLeft;
         timeLeft--;
         if(timeLeft < 0) {
             clearTimeout(timeInerval);
             endScreen.classList.remove('hide')
+            questionsHide.classList.add('hide')
         }
-    }, 1200)
+    }, 100)
+    
     
 }
-
 
 // Start Quiz function
 function startQuiz(event) {
@@ -42,9 +49,10 @@ function startQuiz(event) {
 // Quiz function loop
  function questionLoop(event) {
     var choices = currentQuestion.choices
-    questionsHide.classList.remove('hide')
     questionTitle.innerText = currentQuestion.question
     
+    choicesOutput.innerHTML = ''
+
     for(var i = 0; i < choices.length; i++) {
      var choice = choices[i]
      var isCorrect = currentQuestion.answer === choice
@@ -52,7 +60,9 @@ function startQuiz(event) {
      choicesOutput.insertAdjacentHTML('beforeend', `
     <button data-correct=${isCorrect}>${choice}</button>
      `)
-    }    
+     choicesOutput.setAttribute('data-next', currentQuestionIndex++ )
+    }   
+    questionsHide.classList.remove('hide') 
     console.log(choicesOutput)   
 }
 
@@ -61,24 +71,58 @@ function checkCorrectAnswer(event) {
     var element = event.target
     var dataCorrect = element.getAttribute("data-correct")
     var feedBack = document.querySelector("#feedback")
-    currentQuestionIndex ++ 
+    
+    
     feedBack.classList.remove('hide')
-   // Need to 'flash' the feeback caption
 
     if(dataCorrect === "true") {
         feedBack.innerText = 'Correct!'
-        currentQuestionIndex ++  
-         
-    } else
+        currentQuestionIndex++ 
+              
+    } else {
         feedBack.innerText = 'Incorrect!'
+        timeCountDown(timerEl -10) // Not quite right
+        
     } 
+    fadeOut()
+    nextQuestion()
     
+}         
     
+// Need to fade out the feeback caption
+function fadeOut() {
+    var feedBack = document.querySelector("#feedback")
+    var fadeEffect = setInterval(function() {
     
-     
-    // Need to go onto the next question 
+    if(!feedBack.style.opacity) {
+        feedBack.style.opacity = 1
+    }
+    if(feedBack.style.opacity > 0) {
+        feedBack.style.opacity -=0.1
+    } else {
+        clearInterval(fadeEffect)
+    }
+}, 200)
+}
 
+// Need to go onto the next question 
+function nextQuestion() {
+    currentQuestionIndex ++
+}
 
+// Need to review code
+function printFinalScore() {
+    endScreen.classList.remove('hide')
+    var score = timeCountDown(timeLeft)
+    finalScore.innerText = '10'
+    
+}
 
+// Submission
+function enterName() {
+    var name = initials.value
+    localStorage.setItem('initials', name)
+    initials.value = " "
+}
 
 
