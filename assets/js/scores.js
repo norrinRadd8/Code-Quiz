@@ -6,7 +6,8 @@ clear.addEventListener('click', clearScores)
     
     
 function clearScores() {
-    localStorage.clear()    
+    localStorage.clear() 
+    highScores.innerText = ""   
     
 }
 // Needs Reviewing

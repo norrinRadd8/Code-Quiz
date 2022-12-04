@@ -44,7 +44,6 @@ function startQuiz(event) {
     event.preventDefault()
     timeCountDown()
     questionLoop()
-    currentQuestionIndex
     
 }
 
@@ -79,7 +78,7 @@ function checkCorrectAnswer(event) {
 
     if(dataCorrect === "true") {
         feedBack.innerText = 'Correct!'
-        currentQuestionIndex ++ 
+        
               
     } else {
         feedBack.innerText = 'Incorrect!'
@@ -91,7 +90,7 @@ function checkCorrectAnswer(event) {
     
 }         
     
-// Need to fade out the feeback caption
+// Fading out the feeback caption
 function fadeOut() {
     var feedBack = document.querySelector("#feedback")
     var fadeEffect = setInterval(function() {
