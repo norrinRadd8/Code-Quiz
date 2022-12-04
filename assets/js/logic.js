@@ -31,6 +31,7 @@ function timeCountDown() {
             clearTimeout(timeInerval);
             endScreen.classList.remove('hide')
             questionsHide.classList.add('hide')
+            printFinalScore()
         }
     }, 100)
     
@@ -78,7 +79,7 @@ function checkCorrectAnswer(event) {
 
     if(dataCorrect === "true") {
         feedBack.innerText = 'Correct!'
-        currentQuestionIndex++ 
+        currentQuestionIndex ++ 
               
     } else {
         feedBack.innerText = 'Incorrect!'
@@ -113,9 +114,10 @@ function nextQuestion() {
 
 // Need to review code
 function printFinalScore() {
-    endScreen.classList.remove('hide')
-    var score = timeCountDown(timeLeft)
-    finalScore.innerText = '10'
+    localStorage.setItem('score', timeLeft)
+    finalScore.innerText = timeLeft
+    console.log(timeLeft)
+    console.log(finalScore)
     
 }
 
