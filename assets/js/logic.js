@@ -12,6 +12,7 @@ var initials = document.querySelector("#initials")
 var submit = document.querySelector("#submit")
 var finalScore = document.querySelector("#final-score")
 //var currentQuestionIndex = Math.floor(Math.random() * 3)
+var timeLeft = 0;
 var currentQuestionIndex = 0
 var currentQuestion = triviaData[currentQuestionIndex]
 
@@ -21,7 +22,7 @@ submit.addEventListener('click', enterName)
 
 //Function for the timer
 function timeCountDown() {
-    var timeLeft = 100;
+        timeLeft = 100
     
     var timeInerval = setInterval(function() {
         timerEl.innerText = timeLeft;
@@ -81,7 +82,7 @@ function checkCorrectAnswer(event) {
               
     } else {
         feedBack.innerText = 'Incorrect!'
-        timeCountDown(timerEl -10) // Not quite right
+        timeLeft -= 30
         
     } 
     fadeOut()
