@@ -1,48 +1,50 @@
 // Global variables
 var timerEl = document.getElementById("time");
-var startEl = document.querySelector(".start");
+var startScreen = document.querySelector("#start-screen");
+var startEL = document.querySelector(".start");
 var wrapper = document.querySelector(".wrapper");
 var questionTitle = document.querySelector("#question-title");
 var choicesOutput = document.querySelector("#choices");
 var endScreen = document.querySelector("#end-screen")
 var questionsHide = document.querySelector("#questions")
-var currentQuestionIndex = Math.floor(Math.random() * 3)
+//var currentQuestionIndex = Math.floor(Math.random() * 3)
+var currentQuestionIndex = 0
 var currentQuestion = triviaData[currentQuestionIndex]
 
-
+choicesOutput.addEventListener('click', checkCorrectAnswer) 
+startEL.addEventListener('click', startQuiz)
 
 //Function for the timer
 function timeCountDown() {
-    var timeLeft = 200;
+    var timeLeft = 1200;
     var timeInerval = setInterval(function() {
         timerEl.innerText = timeLeft;
         timeLeft--;
         if(timeLeft < 0) {
             clearTimeout(timeInerval);
-            questionsHide.innerText = ''
             endScreen.classList.remove('hide')
         }
-    }, 200)
+    }, 1200)
     
 }
+
 
 // Start Quiz function
 function startQuiz(event) {
-    timeCountDown()
+    startScreen.classList.add('hide')
     event.preventDefault()
-    startEl.innerText = ''
+    timeCountDown()
     questionLoop()
+    currentQuestionIndex
+    
 }
 
 // Quiz function loop
- function questionLoop() {
-    
+ function questionLoop(event) {
     var choices = currentQuestion.choices
-
-    questionTitle.innerText = currentQuestion.question
-    choicesOutput.innerHTML = ''
     questionsHide.classList.remove('hide')
-
+    questionTitle.innerText = currentQuestion.question
+    
     for(var i = 0; i < choices.length; i++) {
      var choice = choices[i]
      var isCorrect = currentQuestion.answer === choice
@@ -50,40 +52,33 @@ function startQuiz(event) {
      choicesOutput.insertAdjacentHTML('beforeend', `
     <button data-correct=${isCorrect}>${choice}</button>
      `)
-     currentQuestionIndex
     }    
-    
+    console.log(choicesOutput)   
 }
 
 // Checking the correct answer conditions and displaying correct answer
 function checkCorrectAnswer(event) {
-    
     var element = event.target
     var dataCorrect = element.getAttribute("data-correct")
     var feedBack = document.querySelector("#feedback")
-    
+    currentQuestionIndex ++ 
     feedBack.classList.remove('hide')
    // Need to 'flash' the feeback caption
 
     if(dataCorrect === "true") {
         feedBack.innerText = 'Correct!'
-            
-    } 
-    if(dataCorrect != "true") {
+        currentQuestionIndex ++  
+         
+    } else
         feedBack.innerText = 'Incorrect!'
-        
-    }  
-    // Need to go onto the next question 
-    questionLoop(event)
+    } 
     
-    console.log(typeof currentQuestionIndex) 
-    console.log(typeof feedBack)
-   
-}
+    
+    
+     
+    // Need to go onto the next question 
 
 
-choicesOutput.addEventListener('click', checkCorrectAnswer) 
-startEl.addEventListener('click', startQuiz)
 
 
 
