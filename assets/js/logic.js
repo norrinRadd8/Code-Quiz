@@ -62,7 +62,7 @@ function startQuiz(event) {
      choicesOutput.insertAdjacentHTML('beforeend', `
     <button data-correct=${isCorrect}>${choice}</button>
      `)
-     choicesOutput.setAttribute('data-next', currentQuestionIndex++ )
+     choicesOutput.setAttribute('data-next', currentQuestionIndex++ ) //Storing values that I'm not quite sure what they are
     }   
     questionsHide.classList.remove('hide') 
     console.log(choicesOutput)   
