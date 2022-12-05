@@ -1,15 +1,20 @@
-// Clear localStorage
-var clear = document.querySelector("#clear")
 var highScores = document.querySelector("#highscores")
+//highScores.innerText = localStorage.getItem('user_data')
 
-clear.addEventListener('click', clearScores)
-    
-    
+
+
+// Clear localStorage  
 function clearScores() {
+    var clear = document.querySelector("#clear")
     localStorage.clear() 
     highScores.innerText = ""   
     
 }
+console.log(highScores)
+
 // Needs Reviewing
-highScores.innerText = localStorage.getItem('initials', name)
-highScores.innerText = localStorage.getItem('score', timeLeft)
+//highScores.innerText = localStorage.getItem('initials')
+//highScores.innerText = localStorage.getItem('score')
+
+
+// Search how to store a list in local storage
