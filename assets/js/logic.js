@@ -6,48 +6,38 @@ var questionTitle = document.querySelector("#question-title");
 var choicesOutput = document.querySelector("#choices");
 var endScreen = document.querySelector("#end-screen")
 var questionsHide = document.querySelector("#questions")
-var finalScore = document.querySelector("#final-score")
-var initials = document.querySelector("#initials")
-var submit = document.querySelector("#submit")
 var scores = document.getElementById("scores")
 var timeLeft = 0;
 var currentQuestionIndex = 0
-
-
-var highScores = document.getElementById("highscores")
 var wrapper = document.querySelector(".wrapper");
-var check = localStorage.getItem('user_data')
-
-
-choicesOutput.addEventListener('click', checkCorrectAnswer)
-startEL.addEventListener('click', startQuiz)
-submit.addEventListener('click', enterInitials)
-
+var check = localStorage.getItem('user_data');
 
 //Function for the timer
 function timeCountDown() {
-    timeLeft = 180
+    timeLeft = 105
 
     var timeInerval = setInterval(function () {
         timerEl.innerText = timeLeft;
         timeLeft--;
-        if (timeLeft < 0) {
+        if (timeLeft < 0 || currentQuestionIndex > 3) {
             clearTimeout(timeInerval);
             endScreen.classList.remove('hide')
             questionsHide.classList.add('hide')
             printFinalScore()
         }
-    }, 180)
+    }, 105)
 
 }
 
 // Start Quiz function
+if(startEL){
+    startEL.addEventListener("click", startQuiz);
+}
 function startQuiz(event) {
     startScreen.classList.add('hide')
     event.preventDefault()
     timeCountDown()
     questionLoop()
-
 }
 
 // Quiz function loop
@@ -57,14 +47,11 @@ function questionLoop() {
     choicesOutput.innerHTML = '';
     questionTitle.innerHTML = '';
 
-    if(choices == undefined){
-        //stop timer
-        console.log('Hello')
-    }
-
-    var choices = currentQuestion.choices;
+    var choices = currentQuestion.choices; 
+    if(choices) {
         questionTitle.innerText = currentQuestion.question;
-    
+        }
+        
     for (var i = 0; i < choices.length; i++) {
         var choice = choices[i];
         var isCorrect = currentQuestion.answer === choice;
@@ -79,7 +66,12 @@ function questionLoop() {
 
 // Checking the correct answer conditions and displaying correct answer
 
+if(choicesOutput) {
+    choicesOutput.addEventListener("click", checkCorrectAnswer);
+}
+
 function checkCorrectAnswer(event) {
+    
     var element = event.target
     var dataCorrect = element.getAttribute("data-correct")
     var feedBack = document.querySelector("#feedback")
@@ -89,19 +81,21 @@ function checkCorrectAnswer(event) {
     var incorrectAudio = new Audio("assets/sfx/incorrect.wav")
 
     if (dataCorrect === "true") {
-        correctAudio.play()
         feedBack.innerText = 'Correct!'
+        correctAudio.play()
+        fadeOut()
         currentQuestionIndex++
         questionLoop()
 
     } else {
-        incorrectAudio.play()
         feedBack.innerText = 'Incorrect!'
+        incorrectAudio.play()
+        fadeOut()
+        timeLeft -= 10
         currentQuestionIndex++
-        timeLeft -= 30
         questionLoop()
     }
-    fadeOut()
+    
     
 }
 
@@ -118,46 +112,23 @@ function fadeOut() {
         } else {
             clearInterval(fadeEffect)
         }
-    }, 120)
+    }, 90)
 }
 
-
+// Prints final score to page
 function printFinalScore() {
     finalScore.innerText = timeLeft
 }
 
-// Submission 
-var userData = [{           // May use this array to getItem to populate highScores
-    initials: initials,
-    finalScore: finalScore
-}]
 
-function enterInitials() {
-    // Data storage
-    var enterInitials = initials.value
-    initials.value = " "
 
-    var iPush = userData.push(enterInitials) // Thinking if worth pushing to an array then grabbing it to populate 
-    var tPush = userData.push(timeLeft)
 
-    var finalData = (enterInitials + `, ` + timeLeft)
 
-    localStorage.setItem('user_data', finalData)
-    highScores.innerHTML = 'Hello' // Uncaught TypeError: Cannot set properties of null (setting 'innerHTML)
 
-}
 
-function scoresPage() {
-    console.log(userData)
-}
 
-// Clear localStorage  
-function clearScores() {
-    var clear = document.querySelector("#clear")
-    localStorage.clear() 
-    highScores.innerText = ""   
-    
-}
+
+
 
 
 
