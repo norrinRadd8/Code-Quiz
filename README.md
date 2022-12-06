@@ -22,7 +22,7 @@ A start button that when clicked a timer starts and the first question appears.
 N/A
 
 ## Installation
-* Live link to website for review. https://norrinradd8.github.io/Bootstrap-Portfolio/
+* Live link to website for review. https://norrinradd8.github.io/Code-Quiz/
 * GitHub URL. https://github.com/norrinRadd8/Code-Quiz.git
 
 ## Usage
@@ -37,7 +37,7 @@ N/A
 
 ## License
 
-Please refer to the MIT LICENSE in the repo.
+N/A
 
 ## Badges
 
