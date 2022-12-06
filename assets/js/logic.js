@@ -2,7 +2,6 @@
 var timerEl = document.getElementById("time");
 var startScreen = document.querySelector("#start-screen");
 var startEL = document.querySelector(".start");
-var wrapper = document.querySelector(".wrapper");
 var questionTitle = document.querySelector("#question-title");
 var choicesOutput = document.querySelector("#choices");
 var endScreen = document.querySelector("#end-screen")
@@ -10,38 +9,36 @@ var questionsHide = document.querySelector("#questions")
 var finalScore = document.querySelector("#final-score")
 var initials = document.querySelector("#initials")
 var submit = document.querySelector("#submit")
-
-//var currentQuestionIndex = Math.floor(Math.random() * 3)
+var scores = document.getElementById("scores")
 var timeLeft = 0;
 var currentQuestionIndex = 0
-var currentQuestion = triviaData[currentQuestionIndex]
 
 
-//choicesOutput.addEventListener('click', checkCorrectAnswer)
+var highScores = document.getElementById("highscores")
+var wrapper = document.querySelector(".wrapper");
+var check = localStorage.getItem('user_data')
+
+
+choicesOutput.addEventListener('click', checkCorrectAnswer)
 startEL.addEventListener('click', startQuiz)
 submit.addEventListener('click', enterInitials)
 
 
-
-
-//console.log(currentQuestion)
-
 //Function for the timer
 function timeCountDown() {
-        timeLeft = 1000
-    
-    var timeInerval = setInterval(function() {
+    timeLeft = 180
+
+    var timeInerval = setInterval(function () {
         timerEl.innerText = timeLeft;
         timeLeft--;
-        if(timeLeft < 0) {
+        if (timeLeft < 0) {
             clearTimeout(timeInerval);
             endScreen.classList.remove('hide')
             questionsHide.classList.add('hide')
             printFinalScore()
         }
-    }, 1000)
-    
-    
+    }, 180)
+
 }
 
 // Start Quiz function
@@ -50,122 +47,117 @@ function startQuiz(event) {
     event.preventDefault()
     timeCountDown()
     questionLoop()
-    
+
 }
 
-
 // Quiz function loop
- function questionLoop() {
-    
-    choicesOutput.innerHTML = ''
-    questionTitle.innerHTML = ''
-    
-    var choices = currentQuestion.choices
-    questionTitle.innerText = currentQuestion.question   
+function questionLoop() {
 
-    for(var i = 0; i < choices.length; i++) {
-     var choice = choices[i]
-     var isCorrect = currentQuestion.answer === choice
-     
-     choicesOutput.insertAdjacentHTML('beforeend', `
+    var currentQuestion = triviaData[currentQuestionIndex];
+    choicesOutput.innerHTML = '';
+    questionTitle.innerHTML = '';
+
+    if(choices == undefined){
+        //stop timer
+        console.log('Hello')
+    }
+
+    var choices = currentQuestion.choices;
+        questionTitle.innerText = currentQuestion.question;
+    
+    for (var i = 0; i < choices.length; i++) {
+        var choice = choices[i];
+        var isCorrect = currentQuestion.answer === choice;
+
+        choicesOutput.insertAdjacentHTML('beforeend', `
     <button data-correct=${isCorrect}>${choice}</button>
      `)
-    
-    }  
-    questionsHide.classList.remove('hide')
+    }
+    questionsHide.classList.remove('hide');
+   
 }
 
 // Checking the correct answer conditions and displaying correct answer
+
 function checkCorrectAnswer(event) {
-    var element = event.target 
-    console.log(element)
-    currentQuestionIndex++
+    var element = event.target
     var dataCorrect = element.getAttribute("data-correct")
     var feedBack = document.querySelector("#feedback")
-    
-    feedBack.classList.remove('hide')
 
-    if(dataCorrect === "true") {
+    feedBack.classList.remove('hide')
+    var correctAudio = new Audio("assets/sfx/correct.wav")
+    var incorrectAudio = new Audio("assets/sfx/incorrect.wav")
+
+    if (dataCorrect === "true") {
+        correctAudio.play()
         feedBack.innerText = 'Correct!'
-        // currentQuestionIndex++ 
-        console.log(currentQuestionIndex)
-        console.log(feedBack)
-        
-                  
+        currentQuestionIndex++
+        questionLoop()
+
     } else {
+        incorrectAudio.play()
         feedBack.innerText = 'Incorrect!'
-        // currentQuestionIndex++
-        console.log(currentQuestionIndex)
+        currentQuestionIndex++
         timeLeft -= 30
-        
-    } 
+        questionLoop()
+    }
     fadeOut()
-    //nextQuestion()
     
-}         
-    
+}
+
 // Fading out the feeback caption
 function fadeOut() {
     var feedBack = document.querySelector("#feedback")
-    var fadeEffect = setInterval(function() {
-    
-    if(!feedBack.style.opacity) {
-        feedBack.style.opacity = 1
-    }
-    if(feedBack.style.opacity > 0) {
-        feedBack.style.opacity -=0.1
-    } else {
-        clearInterval(fadeEffect)
-    }
-}, 200)
+    var fadeEffect = setInterval(function () {
+
+        if (!feedBack.style.opacity) {
+            feedBack.style.opacity = 1
+        }
+        if (feedBack.style.opacity > 0) {
+            feedBack.style.opacity -= 0.1
+        } else {
+            clearInterval(fadeEffect)
+        }
+    }, 120)
 }
 
-// Need to go onto the next question 
-function nextQuestion(event) {
-    // var nextQ = event.target
-    // currentQuestionIndex++
-}
-    
-//   }
 
-// Need to review code
 function printFinalScore() {
-    //localStorage.setItem('score', timeLeft)
     finalScore.innerText = timeLeft
 }
 
-
-// Submission
-// var userData = [{
-//     initials: initials,
-//     finalScore: finalScore
-// }]
-
+// Submission 
+var userData = [{           // May use this array to getItem to populate highScores
+    initials: initials,
+    finalScore: finalScore
+}]
 
 function enterInitials() {
     // Data storage
-    
     var enterInitials = initials.value
-    
-    // initials.value = " "
-    
-    // var iPush = userData.push(enterInitials)
-    // var tPush = userData.push(timeLeft)
+    initials.value = " "
+
+    var iPush = userData.push(enterInitials) // Thinking if worth pushing to an array then grabbing it to populate 
+    var tPush = userData.push(timeLeft)
 
     var finalData = (enterInitials + `, ` + timeLeft)
-    
+
     localStorage.setItem('user_data', finalData)
-    
-    
-    
-    console.log(finalData)
-    console.log(localStorage.getItem('user_data'))
+    highScores.innerHTML = 'Hello' // Uncaught TypeError: Cannot set properties of null (setting 'innerHTML)
+
 }
-choicesOutput.onclick = checkCorrectAnswer
-// choicesOutput.addEventListener('click', ()=> {
-//     console.log(choicesOutput)
-//     checkCorrectAnswer
-// })
-printFinalScore()
+
+function scoresPage() {
+    console.log(userData)
+}
+
+// Clear localStorage  
+function clearScores() {
+    var clear = document.querySelector("#clear")
+    localStorage.clear() 
+    highScores.innerText = ""   
+    
+}
+
 
 

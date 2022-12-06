@@ -15,7 +15,6 @@ var triviaData = [
     choices : ['1. numbers and strings', '2. other arrays', '3. booleans', '4. all of the above'],
     answer : '4. all of the above'
     }
-    
 ]
 
 
