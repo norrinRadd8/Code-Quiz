@@ -2,6 +2,16 @@
   font-family: 'Gaming';
   src: url('/assets/images/Gaming.ttf');
 }
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden;
+}
 
 body {
 
@@ -11,13 +21,14 @@ body {
   background-repeat:no-repeat;
   background-size:cover;
   background-position: center center;
+  
   /* color: #ffd5f8; */
   color: rgb(255, 204, 0);
   
 }
 
 a {
-  color: #563d7c;
+  color: rgb(255, 204, 0);
   text-decoration: none;
   transition: color 0.1s;
 }
@@ -61,6 +72,7 @@ button:hover {
 
 input[type="text"] {
   font-size: 100%;
+  
 }
 
 h1 {
