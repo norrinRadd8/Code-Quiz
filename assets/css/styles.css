@@ -1,6 +1,12 @@
 body {
+
   font-family: Arial;
   font-size: 120%;
+  background-image: url('/assets/images/vecteezy_vector-retro-futuristic-background_.svg');
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position: center center;
+  
 }
 
 a {
@@ -135,4 +141,5 @@ li:nth-child(odd) {
     margin: 100px auto 0 auto;
     max-width: 600px;
   }
+
 }
