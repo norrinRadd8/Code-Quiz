@@ -56,18 +56,30 @@ button {
 button:hover {
   background-color: #39FF14;
 }
-  /* #button-layout  {
-  text-decoration: none;
-  clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-  
-}   */
+.choices-container  {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 130px);
+    gap: 10px;
+    
+
+}  
 
 .choices button {
-  display: block;
   text-decoration: none;
   clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+  color:rgb(246, 235, 235);
+  background-color: #39FF14;
+  padding: 10px;
+  font-size: 20px;
+  width: 100%;
+  height: 70%;
   
+  border: none;
 
+}
+.choices button:hover {
+  background-color: #092804;
 }
 
 input[type="text"] {
@@ -78,11 +90,13 @@ input[type="text"] {
 h1 {
   display: flex;
   justify-content: center;
+  margin: 70px;
 }
 
 h2, p {
   display: flex;
   justify-content: center;
+  margin: 30px;
 }
 
 tr {
@@ -140,8 +154,8 @@ li:nth-child(odd) {
   font-size: 120%;
   margin-top: 20px;
   padding-top: 10px;
-  color: gray;
-  border-top: 2px solid #ccc;
+  color: #39FF14;
+  border-top: 2px solid #39FF14;
 }
 
 .timer {
