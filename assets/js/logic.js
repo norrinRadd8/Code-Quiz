@@ -13,7 +13,7 @@ var currentQuestionIndex = 0;
 
 //Function for the timer
 function timeCountDown() {
-  timeLeft = 600;
+  timeLeft = 60;
 
   var timeInterval = setInterval(function () {
     timerEl.innerText = timeLeft;
@@ -24,8 +24,9 @@ function timeCountDown() {
       clearTimeout(timeInterval);
       endScreen.classList.remove("hide");
       questionsHide.classList.add("hide");
+      choicesOutput.classList.add("hide");
     }
-  }, 6600);
+  }, 600);
 }
 
 // Start Quiz function
