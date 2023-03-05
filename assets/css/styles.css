@@ -31,6 +31,7 @@ a {
   color: rgb(255, 204, 0);
   text-decoration: none;
   transition: color 0.1s;
+  margin-left: 10px;
 }
 
 a:hover {
@@ -103,7 +104,7 @@ tr {
   display: flex;
   justify-content: space-between;
   background-color: blueviolet;
-  padding: 5px;
+  padding: 10px;
 }
 tr:nth-child(even) {
   background-color: rgb(126, 41, 206);
@@ -125,19 +126,19 @@ li:nth-child(odd) {
 }
 
 #go-back {
-  display: flex;
-  margin-top: 150px;
+  margin-top: 50px;
   
 }
 
-#clear {
-  display: flex;
-  
-}
-
-.wrapper {
+.wrapper, ol, .wrapper-table {
   margin: 50px;
   max-width: 600px;
+}
+
+.wrapper-ol ,
+.wrapper-clear {
+  display: flex;
+  justify-content: center;
 }
 
 .hide {
@@ -168,6 +169,7 @@ li:nth-child(odd) {
   position: absolute;
   top: 10px;
   right: 10px;
+  margin-right: 10px;
 }
 
 .end-screen {
