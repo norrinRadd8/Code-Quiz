@@ -7,13 +7,13 @@ var choicesOutput = document.querySelector("#choices");
 var endScreen = document.querySelector("#end-screen");
 var questionsHide = document.querySelector("#questions");
 var scores = document.getElementById("scores");
-var finalScore = document.getElementById("#final-score");
+var finalScore = document.getElementById("final-score");
 var timeLeft = 0;
 var currentQuestionIndex = 0;
 
 //Function for the timer
 function timeCountDown() {
-  timeLeft = 6000;
+  timeLeft = 60;
 
   var timeInterval = setInterval(function () {
     timerEl.innerText = timeLeft;
@@ -26,7 +26,7 @@ function timeCountDown() {
       questionsHide.classList.add("hide");
       choicesOutput.classList.add("hide");
     }
-  }, 6000);
+  }, 600);
 }
 
 // Start Quiz function
@@ -80,6 +80,10 @@ function checkCorrectAnswer(button) {
   var dataCorrect = button.getAttribute("data-correct");
   var feedBack = document.querySelector("#feedback");
 
+  if (!feedBack) {
+    return;
+  }
+
   clearInterval(feedBack.fadeEffect);
 
   feedBack.classList.remove("hide");
@@ -100,7 +104,10 @@ function checkCorrectAnswer(button) {
     currentQuestionIndex++;
     setTimeout(questionLoop, 1000);
     console.log(timeLeft);
-    // finalScore.innerHTML = timeLeft;
+  }
+  // Display final score if quiz is over
+  if (currentQuestionIndex >= triviaData.length) {
+    finalScore.innerText = timeLeft;
   }
 }
 
