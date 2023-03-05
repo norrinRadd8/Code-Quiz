@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Gaming';
-  src: url('/assets/images/Gaming.ttf');
+  src: url('../images/Gaming.ttf');
 }
 *{
   margin: 0;
@@ -17,7 +17,7 @@ body {
 
   font-family: 'Gaming';
   font-size: 120%;
-  background-image: url('/assets/images/vecteezy_vector-retro-futuristic-background.svg');
+  background-image: url('../images/vecteezy_vector-retro-futuristic-background.svg');
   background-repeat:no-repeat;
   background-size:cover;
   background-position: center center;
